@@ -1,11 +1,11 @@
 package spaceman;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class SpaceManController implements KeyListener {
+public class SpaceManController extends KeyAdapter {
 
     private final SpaceMan player;
     private final Stack<KeyEvent> keyStack;
@@ -82,10 +82,4 @@ public class SpaceManController implements KeyListener {
             keyStackRemove(e);
         }
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
 }

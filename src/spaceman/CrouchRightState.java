@@ -3,28 +3,20 @@ package spaceman;
 import city.cs.engine.BodyImage;
 import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
-import city.cs.engine.SolidFixture;
 import static spaceman.SpaceManState.player;
 
 public class CrouchRightState extends SpaceManState {
 
-    private final BodyImage stateImage;
-    private final Shape stateShape;
+    private static final BodyImage stateImage = new BodyImage("data/crouchright.gif", 4);
+    private static final Shape stateShape = new PolygonShape(0.08f, 1.03f, 1.29f, -0.49f, 0.97f, -2.0f, -1.2f, -2.0f, -0.72f, 0.79f, -0.48f, 1.04f);
 
     public CrouchRightState(SpaceMan player) {
         CrouchRightState.player = player;
-        this.stateImage = new BodyImage("data/crouchright.gif", 4);
-        this.stateShape = new PolygonShape(0.08f, 1.03f, 1.29f, -0.49f, 0.97f, -2.0f, -1.2f, -2.0f, -0.72f, 0.79f, -0.48f, 1.04f);
     }
 
     @Override
     public void setupState() {
-        player.setImage(stateImage);
-        if (player.fixture != null) {
-            player.fixture.destroy();
-        }
-        player.fixture = new SolidFixture(player, stateShape);
-        player.fixture.setFriction(10);
+        setStateLook(stateImage, stateShape);
     }
 
     @Override

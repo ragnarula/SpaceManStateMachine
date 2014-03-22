@@ -3,28 +3,19 @@ package spaceman;
 import city.cs.engine.BodyImage;
 import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
-import city.cs.engine.SolidFixture;
-
 
 final class FaceRightState extends SpaceManState {
-    
-    private final BodyImage stateImage;
-    private final Shape stateShape;
-    
-    public FaceRightState(SpaceMan player){
+
+    private static final BodyImage stateImage = new BodyImage("data/standRight.gif", 4);
+    private static final Shape stateShape = new PolygonShape(-0.48f, 1.59f, -0.71f, 1.36f, -0.87f, 0.48f, -0.96f, -2.02f, 0.79f, -2.01f, 1.29f, 0.0f, 0.08f, 1.6f);
+
+    public FaceRightState(SpaceMan player) {
         FaceRightState.player = player;
-        this.stateImage = new BodyImage("data/standRight.gif", 4);
-        this.stateShape = new PolygonShape(-0.48f, 1.59f, -0.71f, 1.36f, -0.87f, 0.48f, -0.96f, -2.02f, 0.79f, -2.01f, 1.29f, 0.0f, 0.08f, 1.6f);
     }
 
     @Override
     public void setupState() {
-        player.setImage(stateImage);
-        if (player.fixture != null) {
-            player.fixture.destroy();
-        }
-        player.fixture = new SolidFixture(player, stateShape);
-        player.fixture.setFriction(10);
+        setStateLook(stateImage, stateShape);
     }
 
     @Override
@@ -64,9 +55,5 @@ final class FaceRightState extends SpaceManState {
     @Override
     public void stand() {
     }
-
-
-
-
 
 }

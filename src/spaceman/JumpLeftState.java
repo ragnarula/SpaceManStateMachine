@@ -3,35 +3,25 @@ package spaceman;
 import city.cs.engine.BodyImage;
 import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
-import city.cs.engine.SolidFixture;
 import org.jbox2d.common.Vec2;
 
 public class JumpLeftState extends SpaceManState {
 
-    private final BodyImage stateImage;
-    private final Shape stateShape;
-
+    private static final BodyImage stateImage = new BodyImage("data/jumpleft.gif", 4);
+    private static final Shape stateShape = new PolygonShape(0.44f, 1.57f, 0.69f, 1.33f, 0.84f, 0.46f, 0.69f, -1.8f, -0.3f, -1.81f, -1.26f, 0.03f, -0.05f, 1.57f);
+    
     public JumpLeftState(SpaceMan player) {
         JumpLeftState.player = player;
-        this.stateImage = new BodyImage("data/jumpleft.gif", 4);
-        this.stateShape = new PolygonShape(0.44f, 1.57f, 0.69f, 1.33f, 0.84f, 0.46f, 0.69f, -1.8f, -0.3f, -1.81f, -1.26f, 0.03f, -0.05f, 1.57f);
     }
 
     @Override
     public void setupState() {
-        //set image for this state
-        player.setImage(stateImage);
-        //destroy the old fixture, if there was one
-        if (player.fixture != null) {
-            player.fixture.destroy();
-        }
-        player.fixture = new SolidFixture(player, stateShape, 100);
-        player.fixture.setFriction(10);
+        setStateLook(stateImage, stateShape);
         // if state is not locked
         if (!player.stateLocked) {
             //lock the state, make him jump, add senson for detect landing
             player.stateLocked = true;
-            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, player.JUMPSPEED));
+            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, SpaceMan.JUMPSPEED));
             player.footSensor.addSensorListener(new GroundContactListener(player));
             
         }
@@ -40,6 +30,8 @@ public class JumpLeftState extends SpaceManState {
             player.setLinearVelocity(new Vec2(-player.getLinearVelocity().x, player.getLinearVelocity().y));
         }
     }
+
+
 
     @Override
     public void teardownState() {
@@ -72,6 +64,7 @@ public class JumpLeftState extends SpaceManState {
 
     @Override
     public void jump() {
+        
     }
 
     @Override

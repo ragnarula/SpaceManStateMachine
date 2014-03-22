@@ -3,31 +3,21 @@ package spaceman;
 import city.cs.engine.BodyImage;
 import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
-import city.cs.engine.SolidFixture;
 import org.jbox2d.common.Vec2;
 import static spaceman.SpaceManState.player;
 
 public class JumpRightState extends SpaceManState {
 
-    private final BodyImage stateImage;
-    private final Shape stateShape;
+    private static final BodyImage stateImage = new BodyImage("data/jumpRight.gif", 4);
+    private static final Shape stateShape = new PolygonShape(0.06f, 1.58f, 1.28f, 0.07f, 0.33f, -1.85f, -0.39f, -1.85f, -0.71f, -1.53f, -0.88f, 0.48f, -0.72f, 1.36f);
 
     public JumpRightState(SpaceMan player) {
         JumpRightState.player = player;
-        this.stateImage = new BodyImage("data/jumpRight.gif", 4);
-        this.stateShape = new PolygonShape(0.06f, 1.58f, 1.28f, 0.07f, 0.33f, -1.85f, -0.39f, -1.85f, -0.71f, -1.53f, -0.88f, 0.48f, -0.72f, 1.36f);
     }
 
     @Override
     public void setupState() {
-        player.setImage(stateImage);
-
-        if (player.fixture != null) {
-            player.fixture.destroy();
-        }
-
-        player.fixture = new SolidFixture(player, stateShape, 100);
-        player.fixture.setFriction(10);
+        setStateLook(stateImage, stateShape);
 
         if (!player.stateLocked) {
 
@@ -36,7 +26,7 @@ public class JumpRightState extends SpaceManState {
             player.footSensor.addSensorListener(new GroundContactListener(player));
 
         } else if (player.stateLocked) {
-            
+
             player.setLinearVelocity(new Vec2(-player.getLinearVelocity().x, player.getLinearVelocity().y));
         }
     }
@@ -74,6 +64,7 @@ public class JumpRightState extends SpaceManState {
 
     @Override
     public void jump() {
+        
     }
 
     @Override
