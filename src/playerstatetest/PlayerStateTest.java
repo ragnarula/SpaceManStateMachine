@@ -1,6 +1,7 @@
 package playerstatetest;
 
 
+import city.cs.engine.DebugViewer;
 import spaceman.SpaceManController;
 import city.cs.engine.UserView;
 import javax.swing.JFrame;

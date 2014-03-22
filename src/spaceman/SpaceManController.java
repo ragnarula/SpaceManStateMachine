@@ -49,13 +49,11 @@ public class SpaceManController implements KeyListener {
 
         if (key == KeyEvent.VK_LEFT) {
             keyStackAdd(e);
-            player.setState(player.getFaceLeftState());
-            player.walk();
+            player.walkLeft();
         }
         if (key == KeyEvent.VK_RIGHT) {
             keyStackAdd(e);
-            player.setState(player.getFaceRightState());
-            player.walk();
+            player.walkRight();
         }
         if (key == KeyEvent.VK_DOWN) {
             keyStackAdd(e);

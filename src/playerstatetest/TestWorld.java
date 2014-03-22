@@ -39,6 +39,7 @@ public class TestWorld extends World{
         
         p = new SpaceMan(this);
         p.setPosition(new Vec2(0,-11));
+        this.addStepListener(p);
 //        p.stand();
     }
     
