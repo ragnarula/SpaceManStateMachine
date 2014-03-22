@@ -20,24 +20,24 @@ public class JumpLeftState extends SpaceManState {
 
     @Override
     public void setupState() {
-
+        //set image for this state
         player.setImage(stateImage);
-
+        //destroy the old fixture, if there was one
         if (JumpLeftState.fixture != null) {
             JumpLeftState.fixture.destroy();
         }
         JumpLeftState.fixture = new SolidFixture(player, stateShape, 100);
         JumpLeftState.fixture.setFriction(10);
-
+        // if state is not locked
         if (!player.stateLocked) {
-            
+            //lock the state, make him jump, add senson for detect landing
             player.stateLocked = true;
-            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, 6));
+            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, JUMPSPEED));
             player.footSensor.addSensorListener(new GroundContactListener(player));
             
         }
         else if (player.stateLocked) {
-            
+            //if the state is locked, just reverse the x velocity
             player.setLinearVelocity(new Vec2(-player.getLinearVelocity().x, player.getLinearVelocity().y));
         }
     }
@@ -54,6 +54,7 @@ public class JumpLeftState extends SpaceManState {
 
     @Override
     public void walkRight() {
+        //if state is locked, it means he is in the air, so skip to jump right rather than walk right
         if (player.stateLocked) {
             player.skipToNextState(player.jumpRightState);
         }

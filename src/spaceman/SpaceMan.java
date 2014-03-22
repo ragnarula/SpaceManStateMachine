@@ -37,7 +37,7 @@ public final class SpaceMan extends DynamicBody implements StepListener {
         currentState.setupState();
         nextState = faceLeftState;
     }
-
+    
     public void goToNextState() {
         if (currentState != nextState) {
             currentState.teardownState();

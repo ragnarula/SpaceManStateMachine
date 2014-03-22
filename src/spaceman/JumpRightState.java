@@ -32,7 +32,7 @@ public class JumpRightState extends SpaceManState {
         if (!player.stateLocked) {
 
             player.stateLocked = true;
-            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, 6));
+            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, JUMPSPEED));
             player.footSensor.addSensorListener(new GroundContactListener(player));
 
         } else if (player.stateLocked) {

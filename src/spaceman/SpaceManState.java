@@ -5,6 +5,7 @@ import city.cs.engine.SolidFixture;
 public abstract class SpaceManState {
 
     protected static final int WALKSPEED = 5;
+    protected static final int JUMPSPEED = 6;
     protected static SolidFixture fixture;
     protected static SpaceMan player;
     
