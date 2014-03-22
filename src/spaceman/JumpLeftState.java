@@ -5,7 +5,6 @@ import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
 import city.cs.engine.SolidFixture;
 import org.jbox2d.common.Vec2;
-import static spaceman.SpaceManState.player;
 
 public class JumpLeftState extends SpaceManState {
 
@@ -23,16 +22,16 @@ public class JumpLeftState extends SpaceManState {
         //set image for this state
         player.setImage(stateImage);
         //destroy the old fixture, if there was one
-        if (JumpLeftState.fixture != null) {
-            JumpLeftState.fixture.destroy();
+        if (player.fixture != null) {
+            player.fixture.destroy();
         }
-        JumpLeftState.fixture = new SolidFixture(player, stateShape, 100);
-        JumpLeftState.fixture.setFriction(10);
+        player.fixture = new SolidFixture(player, stateShape, 100);
+        player.fixture.setFriction(10);
         // if state is not locked
         if (!player.stateLocked) {
             //lock the state, make him jump, add senson for detect landing
             player.stateLocked = true;
-            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, JUMPSPEED));
+            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, player.JUMPSPEED));
             player.footSensor.addSensorListener(new GroundContactListener(player));
             
         }

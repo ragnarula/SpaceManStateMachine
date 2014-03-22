@@ -20,11 +20,11 @@ final class FaceRightState extends SpaceManState {
     @Override
     public void setupState() {
         player.setImage(stateImage);
-        if (FaceRightState.fixture != null) {
-            FaceRightState.fixture.destroy();
+        if (player.fixture != null) {
+            player.fixture.destroy();
         }
-        FaceRightState.fixture = new SolidFixture(player, stateShape);
-        FaceRightState.fixture.setFriction(10);
+        player.fixture = new SolidFixture(player, stateShape);
+        player.fixture.setFriction(10);
     }
 
     @Override

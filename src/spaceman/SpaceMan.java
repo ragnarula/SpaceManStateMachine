@@ -3,12 +3,18 @@ package spaceman;
 import city.cs.engine.BoxShape;
 import city.cs.engine.DynamicBody;
 import city.cs.engine.Sensor;
+import city.cs.engine.SolidFixture;
 import city.cs.engine.StepEvent;
 import city.cs.engine.StepListener;
 import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
 
 public final class SpaceMan extends DynamicBody implements StepListener {
+    
+    protected static final float WALKSPEED = 3.75f;
+    protected static final int JUMPSPEED = 6;
+    
+    protected SolidFixture fixture;
 
     protected final SpaceManState faceLeftState = new FaceLeftState(this);
     protected final SpaceManState faceRightState = new FaceRightState(this);

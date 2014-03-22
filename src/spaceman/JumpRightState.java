@@ -22,17 +22,17 @@ public class JumpRightState extends SpaceManState {
     public void setupState() {
         player.setImage(stateImage);
 
-        if (JumpRightState.fixture != null) {
-            JumpRightState.fixture.destroy();
+        if (player.fixture != null) {
+            player.fixture.destroy();
         }
 
-        JumpRightState.fixture = new SolidFixture(player, stateShape, 100);
-        JumpRightState.fixture.setFriction(10);
+        player.fixture = new SolidFixture(player, stateShape, 100);
+        player.fixture.setFriction(10);
 
         if (!player.stateLocked) {
 
             player.stateLocked = true;
-            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, JUMPSPEED));
+            player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, SpaceMan.JUMPSPEED));
             player.footSensor.addSensorListener(new GroundContactListener(player));
 
         } else if (player.stateLocked) {

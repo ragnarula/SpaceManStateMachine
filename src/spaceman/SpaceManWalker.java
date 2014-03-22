@@ -7,9 +7,9 @@ import org.jbox2d.common.Vec2;
 public class SpaceManWalker implements StepListener{
 
     private final SpaceMan player;
-    private final int WALKSPEED;
+    private final float WALKSPEED;
     
-    public SpaceManWalker(SpaceMan player, int WALKSPEED) {
+    public SpaceManWalker(SpaceMan player, float WALKSPEED) {
         this.player = player;
         this.WALKSPEED = WALKSPEED;
                 

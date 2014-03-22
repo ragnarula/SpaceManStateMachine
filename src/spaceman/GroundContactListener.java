@@ -15,7 +15,6 @@ public class GroundContactListener implements SensorListener {
     public void beginContact(SensorEvent e) {
         if (e.getContactBody() != null) {
             player.stateLocked = false;
-            System.out.println(player.stateLocked);
             player.footSensor.removeSensorListener(this);
         }
 

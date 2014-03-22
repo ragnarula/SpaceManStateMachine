@@ -20,11 +20,11 @@ public class CrouchLeftState extends SpaceManState{
     @Override
     public void setupState() {
          player.setImage(stateImage);
-         if (CrouchLeftState.fixture != null) {
-            CrouchLeftState.fixture.destroy();
+         if (player.fixture != null) {
+            player.fixture.destroy();
         }
-        CrouchLeftState.fixture = new SolidFixture(player,stateShape);
-        CrouchLeftState.fixture.setFriction(10);
+        player.fixture = new SolidFixture(player,stateShape);
+        player.fixture.setFriction(10);
     }
 
     @Override
