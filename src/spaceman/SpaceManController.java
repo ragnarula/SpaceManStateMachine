@@ -1,11 +1,11 @@
 package spaceman;
 
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class SpaceManController extends KeyAdapter {
+public class SpaceManController implements KeyListener {
 
     private final SpaceMan player;
     private final Stack<KeyEvent> keyStack;
@@ -45,21 +45,24 @@ public class SpaceManController extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_LEFT) {
+        int key = e.getKeyCode();
+        System.out.println(key);
+        if (key == KeyEvent.VK_A) {
             keyStackAdd(e);
             player.walkLeft();
         }
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_D) {
             keyStackAdd(e);
             player.walkRight();
         }
-        if (key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_S) {
+
             keyStackAdd(e);
             player.crouch();
+
         }
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_W) {
             keyStackAdd(e);
             player.jump();
         }
@@ -69,17 +72,22 @@ public class SpaceManController extends KeyAdapter {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_A) {
             keyStackRemove(e);
         }
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_D) {
             keyStackRemove(e);
         }
-        if (key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_S) {
             keyStackRemove(e);
         }
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_W) {
             keyStackRemove(e);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
     }
 }

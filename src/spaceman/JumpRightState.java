@@ -64,7 +64,7 @@ public class JumpRightState extends SpaceManState {
 
     @Override
     public void jump() {
-        
+
     }
 
     @Override
@@ -75,6 +75,11 @@ public class JumpRightState extends SpaceManState {
     @Override
     public void stand() {
         player.setNextState(player.faceRightState);
+    }
+
+    @Override
+    public String toString() {
+        return "Jump right";
     }
 
 }

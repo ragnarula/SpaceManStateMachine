@@ -56,4 +56,8 @@ final class FaceLeftState extends SpaceManState {
     public void stand() {
     }
 
+    @Override
+    public String toString() {
+        return "Face Left";
+    }
 }

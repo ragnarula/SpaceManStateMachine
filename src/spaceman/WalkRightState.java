@@ -11,7 +11,7 @@ public class WalkRightState extends SpaceManState {
     private final SpaceManWalker walker;
 
     public WalkRightState(SpaceMan player) {
-        WalkRightState.player = player; 
+        WalkRightState.player = player;
         this.walker = new SpaceManWalker(player, SpaceMan.WALKSPEED);
     }
 
@@ -60,4 +60,8 @@ public class WalkRightState extends SpaceManState {
         player.setNextState(player.faceRightState);
     }
 
+    @Override
+    public String toString() {
+        return "Walk Right";
+    }
 }

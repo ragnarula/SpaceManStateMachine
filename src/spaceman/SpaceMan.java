@@ -27,6 +27,7 @@ public final class SpaceMan extends DynamicBody implements StepListener {
 
     private SpaceManState currentState;
     protected SpaceManState nextState;
+    protected SpaceManState previousState;
     protected boolean stateLocked = false;
 
     private final BoxShape footSensorShape;
@@ -47,6 +48,7 @@ public final class SpaceMan extends DynamicBody implements StepListener {
     public void goToNextState() {
         if (currentState != nextState) {
             currentState.teardownState();
+            previousState = currentState;
             currentState = nextState;
             currentState.setupState();
         }
@@ -60,7 +62,8 @@ public final class SpaceMan extends DynamicBody implements StepListener {
 
     public void setNextState(SpaceManState state) {
         if (nextState != state) {
-            nextState = state;
+            System.out.println(state.toString());
+            nextState = state;    
         }
     }
 

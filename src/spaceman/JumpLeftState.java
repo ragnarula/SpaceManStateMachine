@@ -31,8 +31,6 @@ public class JumpLeftState extends SpaceManState {
         }
     }
 
-
-
     @Override
     public void teardownState() {
 
@@ -54,7 +52,7 @@ public class JumpLeftState extends SpaceManState {
 
     @Override
     public void walk() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        walkLeft();
     }
 
     @Override
@@ -64,7 +62,7 @@ public class JumpLeftState extends SpaceManState {
 
     @Override
     public void jump() {
-        
+       
     }
 
     @Override
@@ -74,6 +72,11 @@ public class JumpLeftState extends SpaceManState {
 
     @Override
     public void stand() {
-        player.setNextState(player.faceLeftState);
+       player.setNextState(player.faceLeftState);
+    }
+    
+    @Override
+    public String toString(){
+        return "Jump Left";
     }
 }

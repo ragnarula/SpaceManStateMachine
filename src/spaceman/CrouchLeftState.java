@@ -57,4 +57,9 @@ public class CrouchLeftState extends SpaceManState {
         player.setNextState(player.faceLeftState);
     }
 
+    @Override
+    public String toString() {
+        return "Crouch Left";
+    }
+
 }

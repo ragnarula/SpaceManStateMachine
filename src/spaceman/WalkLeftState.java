@@ -60,4 +60,9 @@ public final class WalkLeftState extends SpaceManState {
         player.setNextState(player.faceLeftState);
     }
 
+    @Override
+    public String toString() {
+        return "Walk Left";
+    }
+
 }
