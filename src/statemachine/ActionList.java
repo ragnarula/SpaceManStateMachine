@@ -7,15 +7,15 @@ public class ActionList<T> {
     
     private final HashMap<ActionKey, State<T>> actionMap;
     
-    public ActionList(){
+    protected ActionList(){
         actionMap = new HashMap<>();
     }
 
-    public void addAction(Enum e, State<T> _source, State<T> _goal) {
+    protected void addAction(Enum e, State<T> _source, State<T> _goal) {
         actionMap.put(new ActionKey(e,_source), _goal);
     }
     
-    public State<T> getGoal(Enum e, State<T> _source){
+    protected State<T> getGoal(Enum e, State<T> _source){
         return actionMap.get(new ActionKey(e,_source));
     }
 

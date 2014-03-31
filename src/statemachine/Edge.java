@@ -9,5 +9,9 @@ public class Edge<T> {
         parent = _parent;
         child = _child;
     }
+    
+    protected State<T> getParent(){
+        return parent;
+    }
 
 }
