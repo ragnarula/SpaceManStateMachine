@@ -54,7 +54,6 @@ public final class WalkLeftState extends SpaceManState {
     public void crouch() {
         player.setNextState(player.crouchLeftState);
     }
-
     @Override
     public void stand() {
         player.setNextState(player.faceLeftState);

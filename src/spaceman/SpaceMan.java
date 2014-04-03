@@ -7,9 +7,11 @@ import city.cs.engine.SolidFixture;
 import city.cs.engine.StepEvent;
 import city.cs.engine.StepListener;
 import city.cs.engine.World;
+import java.awt.event.KeyListener;
 import org.jbox2d.common.Vec2;
 
 public final class SpaceMan extends DynamicBody implements StepListener {
+    public enum actions { LEFT, RIGHT};
     
     protected static final float WALKSPEED = 3.75f;
     protected static final int JUMPSPEED = 6;

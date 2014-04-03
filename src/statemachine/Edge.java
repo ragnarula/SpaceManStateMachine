@@ -13,5 +13,9 @@ public class Edge<T> {
     protected State<T> getParent(){
         return parent;
     }
+    
+    protected State<T> getChild(){
+        return child;
+    }
 
 }

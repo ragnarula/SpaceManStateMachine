@@ -1,6 +1,7 @@
 package statemachine;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class StateMap<T> {
 
@@ -49,5 +50,17 @@ public class StateMap<T> {
         
         return null;
         
+    }
+    
+    private ArrayList<State<T>> getChildren (State<T> parent){
+        ArrayList<State<T>> children = new ArrayList<>();
+        Iterator it = pathList.iterator();
+        while (it.hasNext()){
+            Edge edge = (Edge) it.next();
+            if(edge.getParent()==parent){
+                children.add(edge.getChild());
+            }
+        }
+        return children;
     }
 }
