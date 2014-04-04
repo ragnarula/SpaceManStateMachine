@@ -10,7 +10,6 @@ public class StateMap<T> {
     private final StateMachine<T> fsm;
 
     private Stack<State<T>> solution;
-    private Stack<State<T>> frontier;
     private ArrayList<State<T>> explored;
 
     protected StateMap(StateMachine<T> _fsm) {
@@ -27,7 +26,7 @@ public class StateMap<T> {
     }
 
     protected Stack<State<T>> getPath(State<T> goalState) {
-        for(int i = 1; i < 5; i++){
+        for(int i = 0; i < 5; i++){
             boolean found = depthLimitSearch(fsm.getCurrentState(),goalState,i);
             if(found) break;
         }
@@ -40,44 +39,47 @@ public class StateMap<T> {
     }
 
     private boolean depthLimitSearch(State<T> current, State<T> goal, int depth, int limit) {
-        System.out.println("entering search with current state " + current + ", goal state " + goal);
+
+        System.out.println("NEW SEARCH current state " + current + ", goal state " + goal);
+
+        Stack<State<T>> frontier = new Stack<>();
+        boolean found = false;
+
         if (depth == 0) {
             solution = new Stack<>();
-            frontier = new Stack<>();
             explored = new ArrayList<>();
-            System.out.println("beginning iterative depth first search at depth " + depth + ", limit " + limit);
+//            System.out.println("INIT, " + depth + ", limit " + limit);
         }
         if (current == goal) {
             solution.push(goal);
-            System.out.println("goal found at depth " + depth + ", solution: " + solution);
+            System.out.println("GOAL " + depth + ", solution: " + solution);
             return true;
         }
         if (depth == limit) {
-            System.out.println("limit reached at depth " + depth);
+            System.out.println("LIMIT HIT " + depth);
             return false;
         }
+        if(!getChildren(current, frontier)){
+            System.out.println("NO KIDS " + depth);
+            return false;
+        } else {
+            System.out.println("NEW KIDS " + depth + ", frontier: " + frontier);
 
-        if(!getChildren(current)){
-            System.out.println("no new children found at depth " + depth + ", frontier: " + frontier);
-            return false;
-        }
-        System.out.println("found new children at depth " + depth + ", frontier: " + frontier);
-        boolean found = false;
-        while(!frontier.empty() && !found){
-            System.out.println("in while loop at depth " + depth + ", frontier: " + frontier);
-            found = depthLimitSearch(frontier.pop(), goal, depth + 1, limit);
-            if(found && depth > 0){
-                solution.push(current);
-                System.out.println("backtracking at depth " + depth + ", solution: " + solution);
-                break;
+            while (!frontier.empty() && !found) {
+            System.out.println("while depth " + depth + ", frontier: " + frontier);
+                found = depthLimitSearch(frontier.pop(), goal, depth + 1, limit);
+                if (found && depth > 0) {
+                    solution.push(current);
+                    System.out.println("BACKTRACK " + depth + ", solution: " + solution);
+                    break;
+                }
             }
         }
-        System.out.println("ending at depth " + depth + ", success: " + found);
+        System.out.println("END " + depth + ", success: " + found);
         return found;
-
     }
 
-    private boolean getChildren(State<T> parent) {
+    private boolean getChildren(State<T> parent, Stack<State<T>> frontier) {
 
         boolean hasChildren = false;
 
@@ -87,7 +89,7 @@ public class StateMap<T> {
         while (it.hasNext()) {
 
             Edge edge = (Edge) it.next();
-            if (edge.getParent() == parent && !explored.contains(edge.getChild())) {
+            if (edge.getParent() == parent && !explored.contains(edge.getChild()) && !frontier.contains(edge.getChild())) {
                 frontier.push(edge.getChild());
                 hasChildren = true;
             }

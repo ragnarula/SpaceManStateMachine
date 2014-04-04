@@ -8,7 +8,7 @@ import java.util.Stack;
 public class SpaceManController implements KeyListener {
 
     private final SpaceMan player;
-    private final Stack<KeyEvent> keyStack;
+    protected final Stack<KeyEvent> keyStack;
 
     public SpaceManController(SpaceMan p) {
         //stack to keep a history of keys pressed
@@ -64,6 +64,7 @@ public class SpaceManController implements KeyListener {
 
         }
         if (key == KeyEvent.VK_W) {
+            player.doAction(SpaceMan.actions.JUMP);
             keyStackAdd(e);
         }
     }
