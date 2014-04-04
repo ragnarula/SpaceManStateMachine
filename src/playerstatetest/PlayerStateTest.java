@@ -30,7 +30,7 @@ public class PlayerStateTest {
         jframe.requestFocusInWindow();
         world.start();
         jframe.addKeyListener(new SpaceManController(world.getPlayer()));
-        JFrame debugView = new DebugViewer(world, 500, 500);
+//        JFrame debugView = new DebugViewer(world, 500, 500);
     }
     
 

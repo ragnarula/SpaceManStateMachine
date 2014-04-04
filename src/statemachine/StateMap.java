@@ -30,7 +30,7 @@ public class StateMap<T> {
             boolean found = depthLimitSearch(fsm.getCurrentState(),goalState,i);
             if(found) break;
         }
-        System.out.println("Returning solution: " + solution);
+//        System.out.println("Returning solution: " + solution);
         return solution;
     }
 
@@ -40,7 +40,7 @@ public class StateMap<T> {
 
     private boolean depthLimitSearch(State<T> current, State<T> goal, int depth, int limit) {
 
-        System.out.println("NEW SEARCH current state " + current + ", goal state " + goal);
+//        System.out.println("NEW SEARCH current state " + current + ", goal state " + goal);
 
         Stack<State<T>> frontier = new Stack<>();
         boolean found = false;
@@ -52,30 +52,30 @@ public class StateMap<T> {
         }
         if (current == goal) {
             solution.push(goal);
-            System.out.println("GOAL " + depth + ", solution: " + solution);
+//            System.out.println("GOAL " + depth + ", solution: " + solution);
             return true;
         }
         if (depth == limit) {
-            System.out.println("LIMIT HIT " + depth);
+//            System.out.println("LIMIT HIT " + depth);
             return false;
         }
         if(!getChildren(current, frontier)){
-            System.out.println("NO KIDS " + depth);
+//            System.out.println("NO KIDS " + depth);
             return false;
         } else {
-            System.out.println("NEW KIDS " + depth + ", frontier: " + frontier);
+//            System.out.println("NEW KIDS " + depth + ", frontier: " + frontier);
 
             while (!frontier.empty() && !found) {
-            System.out.println("while depth " + depth + ", frontier: " + frontier);
+//            System.out.println("while depth " + depth + ", frontier: " + frontier);
                 found = depthLimitSearch(frontier.pop(), goal, depth + 1, limit);
                 if (found && depth > 0) {
                     solution.push(current);
-                    System.out.println("BACKTRACK " + depth + ", solution: " + solution);
+//                    System.out.println("BACKTRACK " + depth + ", solution: " + solution);
                     break;
                 }
             }
         }
-        System.out.println("END " + depth + ", success: " + found);
+//        System.out.println("END " + depth + ", success: " + found);
         return found;
     }
 
