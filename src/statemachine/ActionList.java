@@ -12,11 +12,15 @@ public class ActionList<T> {
     }
 
     protected void addAction(Enum e, State<T> _source, State<T> _goal) {
-        actionMap.put(new ActionKey(e,_source), _goal);
+        ActionKey actionKey = new ActionKey(e,_source);
+//        System.out.println(actionKey.hashCode());
+        actionMap.put(actionKey, _goal);
     }
     
     protected State<T> getGoal(Enum e, State<T> _source){
-        return actionMap.get(new ActionKey(e,_source));
+        ActionKey actionKey = new ActionKey(e,_source);
+//        System.out.println(actionKey.hashCode());
+        return actionMap.get(actionKey);
     }
 
     static class ActionKey {
@@ -53,9 +57,9 @@ public class ActionList<T> {
 
         @Override
         public int hashCode() {
-            int hash = 3;
-            hash = 67 * hash + Objects.hashCode(this.action);
-            hash = 67 * hash + Objects.hashCode(this.source);
+            int hash = 0;
+//            hash = hash + Objects.hashCode(this.action);
+//            hash = hash + Objects.hashCode(this.source);
             return hash;
         }
 

@@ -11,32 +11,40 @@ public class StateMachine<T> {
     private State<T> currentState;
     private State<T> goalState;
 
-    public StateMachine(State<T> initialState) {
-        currentState = initialState;
+    public StateMachine(T _context) {
+        context = _context;
         map = new StateMap<>(this);
         actions = new ActionList<>();
     }
 
+    public void setInitialState(State<T> initialState) {
+        currentState = initialState;
+        goalState = currentState;
+        currentState.setup();
+    }
+
     public void update() {
+
         if (goalState == currentState) {
             currentState.update();
-        } else {
+        } else if(goalState != null) {
+            System.out.println(goalState + " " + currentState);
             followPath(map.getPath(goalState));
         }
     }
 
     private void followPath(Stack<State<T>> states) {
         currentState.teardown();
-        while(!states.empty()){
-          currentState = states.pop();
-          currentState.setup();
-            if(!states.empty()){
+        while (!states.empty()) {
+            currentState = states.pop();
+            currentState.setup();
+            if (!states.empty()) {
                 currentState.teardown();
             }
         }
     }
-    
-    protected State<T> getCurrentState(){
+
+    protected State<T> getCurrentState() {
         return currentState;
     }
 
@@ -54,7 +62,10 @@ public class StateMachine<T> {
         if (state != null && state != goalState) {
             goalState = state;
         }
+    }
 
+    protected final T getContext() {
+        return context;
     }
 
 }

@@ -39,7 +39,6 @@ public class SpaceManController implements KeyListener {
         }
         //if key stack is empty, stand still
         if (keyStack.isEmpty()) {
-            player.stand();
         }
     }
 
@@ -47,24 +46,24 @@ public class SpaceManController implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         int key = e.getKeyCode();
-        System.out.println(key);
+//        System.out.println(key);
         if (key == KeyEvent.VK_A) {
+            player.doAction(SpaceMan.actions.LEFT);
             keyStackAdd(e);
-            player.walkLeft();
+
         }
         if (key == KeyEvent.VK_D) {
+            player.doAction(SpaceMan.actions.RIGHT);
             keyStackAdd(e);
-            player.walkRight();
+
         }
         if (key == KeyEvent.VK_S) {
 
             keyStackAdd(e);
-            player.crouch();
 
         }
         if (key == KeyEvent.VK_W) {
             keyStackAdd(e);
-            player.jump();
         }
     }
 

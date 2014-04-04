@@ -13,11 +13,11 @@ public class GroundContactListener implements SensorListener {
 
     @Override
     public void beginContact(SensorEvent e) {
-        if (e.getContactBody() != null) {
-            player.skipToNextState(player.previousState);
-            player.stateLocked = false;            
-            player.footSensor.removeSensorListener(this);
-        }
+//        if (e.getContactBody() != null) {
+//            player.skipToNextState(player.previousState);
+//            player.stateLocked = false;
+//            player.footSensor.removeSensorListener(this);
+//        }
     }
 
     @Override

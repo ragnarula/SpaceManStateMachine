@@ -3,12 +3,19 @@ package spaceman;
 import city.cs.engine.BodyImage;
 import city.cs.engine.Shape;
 import city.cs.engine.SolidFixture;
+import statemachine.State;
+import statemachine.StateMachine;
 
-public abstract class SpaceManState {
+public abstract class SpaceManState extends State<SpaceMan> {
 
-    protected static SpaceMan player;
+    private SpaceMan player;
 
-    protected static void setStateLook(BodyImage stateImage, Shape stateShape) {
+    public SpaceManState(StateMachine<SpaceMan> fsm) {
+        super(fsm);
+        player = getContext();
+    }
+
+    protected void setStateLook(BodyImage stateImage, Shape stateShape) {
         //set image for this state
         player.setImage(stateImage);
         //destroy the old fixture, if there was one
@@ -19,21 +26,4 @@ public abstract class SpaceManState {
         player.fixture.setFriction(10);
     }
 
-    public abstract void setupState();
-
-    public abstract void teardownState();
-
-    public abstract void walkLeft();
-
-    public abstract void walkRight();
-
-    public abstract void walk();
-
-    public abstract void shoot();
-
-    public abstract void jump();
-
-    public abstract void crouch();
-
-    public abstract void stand();
 }

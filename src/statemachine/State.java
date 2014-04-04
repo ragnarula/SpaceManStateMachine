@@ -1,9 +1,19 @@
 package statemachine;
 
 public abstract class State<T> {
+
+    private StateMachine<T> fsm;
+
+    public State(StateMachine<T> fsm) {
+        this.fsm = fsm;
+    }
+
+    protected final T getContext() {
+        return fsm.getContext();
+    }
     
-    public abstract void update();
-    public abstract void setup();
-    public abstract void teardown();
+    protected abstract void update();
+    protected abstract void setup();
+    protected abstract void teardown();
 
 }

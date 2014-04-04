@@ -9,6 +9,7 @@ import city.cs.engine.StepListener;
 import city.cs.engine.World;
 import java.awt.event.KeyListener;
 import org.jbox2d.common.Vec2;
+import statemachine.StateMachine;
 
 public final class SpaceMan extends DynamicBody implements StepListener {
     public enum actions { LEFT, RIGHT};
@@ -18,19 +19,10 @@ public final class SpaceMan extends DynamicBody implements StepListener {
     
     protected SolidFixture fixture;
 
-    protected final SpaceManState faceLeftState = new FaceLeftState(this);
-    protected final SpaceManState faceRightState = new FaceRightState(this);
-    protected final SpaceManState walkLeftState = new WalkLeftState(this);
-    protected final SpaceManState walkRightState = new WalkRightState(this);
-    protected final SpaceManState crouchLeftState = new CrouchLeftState(this);
-    protected final SpaceManState crouchRightState = new CrouchRightState(this);
-    protected final SpaceManState jumpLeftState = new JumpLeftState(this);
-    protected final SpaceManState jumpRightState = new JumpRightState(this);
+    private final StateMachine<SpaceMan> fsm = new StateMachine<>(this);
+    private final SpaceManState faceLeftState = new FaceLeftState(fsm);
+    private final SpaceManState faceRightState = new FaceRightState(fsm);
 
-    private SpaceManState currentState;
-    protected SpaceManState nextState;
-    protected SpaceManState previousState;
-    protected boolean stateLocked = false;
 
     private final BoxShape footSensorShape;
     protected final Sensor footSensor;
@@ -41,70 +33,29 @@ public final class SpaceMan extends DynamicBody implements StepListener {
 
         this.footSensorShape = new BoxShape(0.125f, 0.125f, new Vec2(0, -1.9f));
         this.footSensor = new Sensor(this, footSensorShape);
+        fsm.setInitialState(faceLeftState);
+        fsm.addEdge(faceLeftState, faceRightState, true);
 
-        currentState = faceLeftState;
-        currentState.setupState();
-        nextState = faceLeftState;
-    }
-    
-    public void goToNextState() {
-        if (currentState != nextState) {
-            currentState.teardownState();
-            previousState = currentState;
-            currentState = nextState;
-            currentState.setupState();
-        }
-    }
-    
-    public void skipToNextState(SpaceManState state){
-        currentState.teardownState();
-        currentState = state;
-        currentState.setupState();
+        fsm.addAction(actions.LEFT, faceRightState, faceLeftState);
+
+        fsm.addAction(SpaceMan.actions.RIGHT, faceLeftState,faceRightState);
+        System.out.println(faceLeftState);
+        System.out.println(faceRightState);
     }
 
-    public void setNextState(SpaceManState state) {
-        if (nextState != state) {
-            System.out.println(state.toString());
-            nextState = state;    
-        }
+    public void doAction(Enum e){
+//        System.out.println(e);
+        fsm.doAction(e);
     }
 
-    public void walkLeft() {
-        currentState.walkLeft();
-    }
-
-    public void walkRight() {
-        currentState.walkRight();
-    }
-
-    public void walk() {
-        currentState.walk();
-    }
-
-    public void jump() {
-        currentState.jump();
-    }
-
-    public void crouch() {
-        currentState.crouch();
-    }
-
-    public void stand() {
-        currentState.stand();
-    }
-
-    public void shoot() {
-        currentState.shoot();
-    }
 
     @Override
     public void preStep(StepEvent e) {
+        fsm.update();
     }
 
     @Override
     public void postStep(StepEvent e) {
-        if (!stateLocked) {
-            goToNextState();
-        }
+
     }
 }
