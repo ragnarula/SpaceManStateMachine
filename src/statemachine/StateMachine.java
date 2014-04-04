@@ -9,7 +9,6 @@ public class StateMachine<T> {
 
     private T context;
     private State<T> currentState;
-    private State<T> goalState;
 
     public StateMachine(T _context) {
         context = _context;
@@ -19,18 +18,11 @@ public class StateMachine<T> {
 
     public void setInitialState(State<T> initialState) {
         currentState = initialState;
-        goalState = currentState;
         currentState.setup();
     }
 
     public void update() {
-
-        if (goalState == currentState) {
-            currentState.update();
-        } else if(goalState != null) {
-            System.out.println(goalState + " " + currentState);
-            followPath(map.getPath(goalState));
-        }
+        currentState.update();
     }
 
     private void followPath(Stack<State<T>> states) {
@@ -43,6 +35,7 @@ public class StateMachine<T> {
             }
         }
     }
+
 
     protected State<T> getCurrentState() {
         return currentState;
@@ -59,9 +52,10 @@ public class StateMachine<T> {
     public void doAction(Enum e) {
 
         State<T> state = actions.getGoal(e, currentState);
-        if (state != null && state != goalState) {
-            goalState = state;
+        if (state != null) {
+            followPath(map.getPath(state));
         }
+
     }
 
     protected final T getContext() {

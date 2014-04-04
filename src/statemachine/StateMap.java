@@ -27,8 +27,11 @@ public class StateMap<T> {
     }
 
     protected Stack<State<T>> getPath(State<T> goalState) {
-        depthLimitSearch(fsm.getCurrentState(),goalState,3);
-        System.out.println("Solution :" + solution);
+        for(int i = 1; i < 5; i++){
+            boolean found = depthLimitSearch(fsm.getCurrentState(),goalState,i);
+            if(found) break;
+        }
+        System.out.println("Returning solution: " + solution);
         return solution;
     }
 
@@ -37,38 +40,39 @@ public class StateMap<T> {
     }
 
     private boolean depthLimitSearch(State<T> current, State<T> goal, int depth, int limit) {
+        System.out.println("entering search with current state " + current + ", goal state " + goal);
         if (depth == 0) {
             solution = new Stack<>();
             frontier = new Stack<>();
             explored = new ArrayList<>();
-            System.out.println("init : " + depth);
+            System.out.println("beginning iterative depth first search at depth " + depth + ", limit " + limit);
         }
         if (current == goal) {
             solution.push(goal);
-            System.out.println("goal : " + depth + " solution: " + solution);
+            System.out.println("goal found at depth " + depth + ", solution: " + solution);
             return true;
         }
         if (depth == limit) {
-            System.out.println("limit : " + depth);
+            System.out.println("limit reached at depth " + depth);
             return false;
         }
 
         if(!getChildren(current)){
-            System.out.println("get children : " + depth + " " + frontier);
+            System.out.println("no new children found at depth " + depth + ", frontier: " + frontier);
             return false;
         }
-        System.out.println("got children : " + depth + " " + frontier);
+        System.out.println("found new children at depth " + depth + ", frontier: " + frontier);
         boolean found = false;
         while(!frontier.empty() && !found){
-            System.out.println("while : " + depth);
+            System.out.println("in while loop at depth " + depth + ", frontier: " + frontier);
             found = depthLimitSearch(frontier.pop(), goal, depth + 1, limit);
             if(found && depth > 0){
                 solution.push(current);
-                System.out.println("backtrack : " + depth + " solution: " + solution);
+                System.out.println("backtracking at depth " + depth + ", solution: " + solution);
                 break;
             }
         }
-        System.out.println("end : " + depth);
+        System.out.println("ending at depth " + depth + ", success: " + found);
         return found;
 
     }

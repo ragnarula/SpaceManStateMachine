@@ -5,9 +5,8 @@ import org.jbox2d.common.Vec2;
 import statemachine.StateMachine;
 
 public final class SpaceMan extends DynamicBody implements StepListener {
-    public enum actions {LEFT, RIGHT, CROUCH, STAND}
 
-    ;
+    public enum actions {LEFT, RIGHT, CROUCH, STAND}
 
     protected static final float WALKSPEED = 3.75f;
     protected static final int JUMPSPEED = 6;
@@ -66,12 +65,9 @@ public final class SpaceMan extends DynamicBody implements StepListener {
         fsm.addAction(actions.LEFT, walkRight, walkLeft);
         fsm.addAction(actions.CROUCH, walkRight, crouchRight);
         fsm.addAction(actions.STAND, walkRight, standRight);
-//        System.out.println(standLeft);
-//        System.out.println(standRight);
     }
 
     public void doAction(Enum e) {
-//        System.out.println(e);
         fsm.doAction(e);
     }
 

@@ -16,7 +16,6 @@ final class StandLeft extends SpaceManState {
 
     @Override
     protected void update() {
-
     }
 
     @Override
