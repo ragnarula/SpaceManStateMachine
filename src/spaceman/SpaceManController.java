@@ -58,7 +58,7 @@ public class SpaceManController implements KeyListener {
 
         }
         if (key == KeyEvent.VK_S) {
-
+            player.doAction(SpaceMan.actions.CROUCH);
             keyStackAdd(e);
 
         }

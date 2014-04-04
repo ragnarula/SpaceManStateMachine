@@ -33,35 +33,55 @@ public class ActionList<T> {
             source = _source;
         }
 
-        public Enum getAction() {
-            return action;
-        }
+//        public Enum getAction() {
+//            return action;
+//        }
+//
+//        public State getSource() {
+//            return source;
+//        }
 
-        public State getSource() {
-            return source;
-        }
+//        @Override
+//        public boolean equals(Object obj) {
+//            boolean result = false;
+//            if (obj == null || obj.getClass() != getClass()) {
+//                return false;
+//            } else {
+//                ActionKey key = (ActionKey) obj;
+//                if (key.getAction() == this.getAction() && key.getSource() == this.getSource()){
+//                    result = true;
+//                }
+//            }
+//            return result;
+//        }
+//
+//        @Override
+//        public int hashCode() {
+//            int hash = 0;
+////            hash = hash + Objects.hashCode(this.action);
+////            hash = hash + Objects.hashCode(this.source);
+//            return hash;
+//        }
+
 
         @Override
-        public boolean equals(Object obj) {
-            boolean result = false;
-            if (obj == null || obj.getClass() != getClass()) {
-                return false;
-            } else {
-                ActionKey key = (ActionKey) obj;
-                if (key.getAction() == this.getAction() && key.getSource() == this.getSource()){
-                    result = true;
-                }
-            }
-            return result;
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ActionKey actionKey = (ActionKey) o;
+
+            if (!action.equals(actionKey.action)) return false;
+            if (!source.equals(actionKey.source)) return false;
+
+            return true;
         }
 
         @Override
         public int hashCode() {
-            int hash = 0;
-//            hash = hash + Objects.hashCode(this.action);
-//            hash = hash + Objects.hashCode(this.source);
-            return hash;
+            int result = action.hashCode();
+            result = 31 * result + source.hashCode();
+            return result;
         }
-
     }
 }

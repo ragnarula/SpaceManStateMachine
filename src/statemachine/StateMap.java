@@ -11,6 +11,7 @@ public class StateMap<T> {
 
     private Stack<State<T>> solution;
     private Stack<State<T>> frontier;
+    private ArrayList<State<T>> explored;
 
     protected StateMap(StateMachine<T> _fsm) {
         pathList = new ArrayList<>();
@@ -39,48 +40,52 @@ public class StateMap<T> {
         if (depth == 0) {
             solution = new Stack<>();
             frontier = new Stack<>();
-            System.out.println("init :" + depth);
+            explored = new ArrayList<>();
+            System.out.println("init : " + depth);
         }
         if (current == goal) {
             solution.push(goal);
-            System.out.println("goal :" + depth);
+            System.out.println("goal : " + depth + " solution: " + solution);
             return true;
         }
         if (depth == limit) {
-            System.out.println("limit :" + depth);
+            System.out.println("limit : " + depth);
             return false;
         }
 
         if(!getChildren(current)){
-            System.out.println("get children :" + depth + " " + frontier);
+            System.out.println("get children : " + depth + " " + frontier);
             return false;
         }
-        System.out.println("got children :" + depth + " " + frontier);
+        System.out.println("got children : " + depth + " " + frontier);
         boolean found = false;
-        while(!frontier.empty()){
-            System.out.println("while :" + depth);
+        while(!frontier.empty() && !found){
+            System.out.println("while : " + depth);
             found = depthLimitSearch(frontier.pop(), goal, depth + 1, limit);
             if(found && depth > 0){
-                System.out.println("found :" + depth);
                 solution.push(current);
+                System.out.println("backtrack : " + depth + " solution: " + solution);
                 break;
             }
         }
-        System.out.println("end :" + depth);
+        System.out.println("end : " + depth);
         return found;
 
     }
 
     private boolean getChildren(State<T> parent) {
+
         boolean hasChildren = false;
 
+        explored.add(parent);
         Iterator it = pathList.iterator();
 
         while (it.hasNext()) {
-            hasChildren = true;
+
             Edge edge = (Edge) it.next();
-            if (edge.getParent() == parent) {
+            if (edge.getParent() == parent && !explored.contains(edge.getChild())) {
                 frontier.push(edge.getChild());
+                hasChildren = true;
             }
         }
         return hasChildren;

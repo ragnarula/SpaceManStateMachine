@@ -5,12 +5,12 @@ import city.cs.engine.PolygonShape;
 import city.cs.engine.Shape;
 import statemachine.StateMachine;
 
-final class FaceRightState extends SpaceManState {
+final class StandRight extends SpaceManState {
 
     private static final BodyImage stateImage = new BodyImage("data/standRight.gif", 4);
     private static final Shape stateShape = new PolygonShape(-0.48f, 1.59f, -0.71f, 1.36f, -0.87f, 0.48f, -0.96f, -2.02f, 0.79f, -2.01f, 1.29f, 0.0f, 0.08f, 1.6f);
 
-    public FaceRightState(StateMachine<SpaceMan> fsm) {
+    public StandRight(StateMachine<SpaceMan> fsm) {
         super(fsm);
     }
 
@@ -22,13 +22,13 @@ final class FaceRightState extends SpaceManState {
 
     @Override
     protected void setup() {
-        System.out.println("right up");
+        System.out.println("stand right up");
         setStateLook(stateImage, stateShape);
     }
 
     @Override
     protected void teardown() {
-        System.out.println("right up");
+        System.out.println("stand right down");
 
     }
 }
