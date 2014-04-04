@@ -1,0 +1,37 @@
+#ant specific
+dist/
+build/
+ 
+#netbeans specific
+core
+nbproject/*
+!nbproject/project.properties
+!nbproject/project.xml
+ 
+#java specific
+*.class
+ 
+#general swap/backup files
+*.so
+*.log
+*.out
+*~
+*.swp
+*.DS_Store
+*.lock
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+workspace.xml
+tasks.xml
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
