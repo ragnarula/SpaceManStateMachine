@@ -47,7 +47,7 @@ public class SpaceManController implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         int key = e.getKeyCode();
-        System.out.println(key);
+//        System.out.println(key);
         if (key == KeyEvent.VK_A) {
             keyStackAdd(e);
             player.walkLeft();
