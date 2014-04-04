@@ -26,9 +26,8 @@ nbproject/*
 .settings/
 
 # Intellij
-.idea/
-*.iml
-*.iws
+workspace.xml
+tasks.xml
 
 # Mac
 .DS_Store

@@ -1,6 +1,6 @@
 package statemachine;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 public class StateMachine<T> {
 
@@ -25,14 +25,15 @@ public class StateMachine<T> {
         }
     }
 
-    private void followPath(ArrayList<State<T>> states) {
+    private void followPath(Stack<State<T>> states) {
         currentState.teardown();
-        for (int i = 0; i < states.size() - 1; i++) {
-            states.get(i).setup();
-            states.get(i).teardown();
+        while(!states.empty()){
+          currentState = states.pop();
+          currentState.setup();
+            if(!states.empty()){
+                currentState.teardown();
+            }
         }
-        currentState = states.get(states.size());
-        currentState.setup();
     }
     
     protected State<T> getCurrentState(){
