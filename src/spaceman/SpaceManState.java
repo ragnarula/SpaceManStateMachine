@@ -8,7 +8,7 @@ import statemachine.StateMachine;
 
 public abstract class SpaceManState extends State<SpaceMan> {
 
-    private SpaceMan player;
+    protected SpaceMan player;
 
     public SpaceManState(StateMachine<SpaceMan> fsm) {
         super(fsm);

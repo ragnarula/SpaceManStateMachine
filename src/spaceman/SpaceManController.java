@@ -39,6 +39,7 @@ public class SpaceManController implements KeyListener {
         }
         //if key stack is empty, stand still
         if (keyStack.isEmpty()) {
+            player.doAction(SpaceMan.actions.STAND);
         }
     }
 

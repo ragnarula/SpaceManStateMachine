@@ -31,24 +31,41 @@ public final class SpaceMan extends DynamicBody implements StepListener {
         final SpaceManState standRight = new StandRight(fsm);
         final SpaceManState crouchLeft = new CrouchLeft(fsm);
         final SpaceManState crouchRight = new CrouchRight(fsm);
+        final SpaceManState walkLeft = new WalkLeft(fsm);
+        final SpaceManState walkRight = new WalkRight(fsm);
 
         //setup state machine
         fsm.setInitialState(standRight);
-        //add edges
+        //add edges for state graph
         fsm.addEdge(standLeft, standRight, true);
         fsm.addEdge(standLeft, crouchLeft, true);
         fsm.addEdge(standRight, crouchRight, true);
+        fsm.addEdge(walkLeft, standLeft, true);
+        fsm.addEdge(walkRight, standRight, true);
         //add actions for stand left
-        fsm.addAction(actions.RIGHT, standLeft, standRight);
+        fsm.addAction(actions.LEFT, standLeft, walkLeft);
+        fsm.addAction(actions.RIGHT, standLeft, walkRight);
         fsm.addAction(actions.CROUCH, standLeft, crouchLeft);
         //add actions for stand right
-        fsm.addAction(actions.LEFT, standRight, standLeft);
+        fsm.addAction(actions.LEFT, standRight, walkLeft);
+        fsm.addAction(actions.RIGHT, standRight, walkRight);
         fsm.addAction(actions.CROUCH, standRight, crouchRight);
         //add actions for crouch left
-        fsm.addAction(actions.RIGHT, crouchLeft, standRight);
+        fsm.addAction(actions.LEFT, crouchLeft, walkLeft);
+        fsm.addAction(actions.RIGHT, crouchLeft, walkRight);
+        fsm.addAction(actions.STAND, crouchLeft, standLeft);
         //add actions for crouch right
-        fsm.addAction(actions.LEFT, crouchRight, standLeft);
-
+        fsm.addAction(actions.LEFT, crouchRight, walkLeft);
+        fsm.addAction(actions.RIGHT, crouchRight, walkRight);
+        fsm.addAction(actions.STAND, crouchRight, standRight);
+        //add actions for walk left
+        fsm.addAction(actions.RIGHT, walkLeft, walkRight);
+        fsm.addAction(actions.CROUCH, walkLeft, crouchLeft);
+        fsm.addAction(actions.STAND, walkLeft, standLeft);
+        //add actions for walk right
+        fsm.addAction(actions.LEFT, walkRight, walkLeft);
+        fsm.addAction(actions.CROUCH, walkRight, crouchRight);
+        fsm.addAction(actions.STAND, walkRight, standRight);
 //        System.out.println(standLeft);
 //        System.out.println(standRight);
     }
