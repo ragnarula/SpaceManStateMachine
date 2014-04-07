@@ -9,6 +9,7 @@ public class StateMachine<T> {
 
     private T context;
     private State<T> currentState;
+    private State<T> goalState;
 
     public StateMachine(T _context) {
         context = _context;
@@ -18,11 +19,16 @@ public class StateMachine<T> {
 
     public void setInitialState(State<T> initialState) {
         currentState = initialState;
+        goalState = currentState;
         currentState.setup();
     }
 
     public void update() {
-        currentState.update();
+        if(currentState == goalState) {
+            currentState.update();
+        } else {
+            followPath(map.getPath(goalState));
+        }
     }
 
     private void followPath(Stack<State<T>> states) {
@@ -50,10 +56,11 @@ public class StateMachine<T> {
     }
 
     public void doAction(Enum e) {
-
+//        System.out.println(e);
         State<T> state = actions.getGoal(e, currentState);
         if (state != null) {
-            followPath(map.getPath(state));
+//            System.out.println("not null");
+            goalState = state;
         }
 
     }

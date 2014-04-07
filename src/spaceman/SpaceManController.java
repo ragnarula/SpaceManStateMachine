@@ -1,24 +1,30 @@
 package spaceman;
 
+import city.cs.engine.StepEvent;
+import city.cs.engine.StepListener;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class SpaceManController implements KeyListener {
+public class SpaceManController implements KeyListener, StepListener {
 
     private final SpaceMan player;
     protected final Stack<KeyEvent> keyStack;
+    private boolean repeatKeys = false;
 
     public SpaceManController(SpaceMan p) {
         //stack to keep a history of keys pressed
-        this.keyStack = new Stack();
-        this.player = p;
+        keyStack = new Stack();
+        player = p;
+        player.setController(this);
     }
 
     private void keyStackAdd(KeyEvent e) {
         if (keyStack.isEmpty()) {
             keyStack.push(e);
+
         } else if (keyStack.peek().getKeyCode() != e.getKeyCode()) {
             keyStack.push(e);
         }
@@ -35,10 +41,12 @@ public class SpaceManController implements KeyListener {
         }
         //if stack is not now empty, go to key pressed at top of stack
         if (!keyStack.isEmpty()) {
-            keyPressed(keyStack.pop());
+//            keyPressed(keyStack.pop());
+            repeatKeys = true;
         }
         //if key stack is empty, stand still
         if (keyStack.isEmpty()) {
+            repeatKeys = false;
             player.doAction(SpaceMan.actions.STAND);
         }
     }
@@ -49,23 +57,20 @@ public class SpaceManController implements KeyListener {
         int key = e.getKeyCode();
 //        System.out.println(key);
         if (key == KeyEvent.VK_A) {
-            player.doAction(SpaceMan.actions.LEFT);
             keyStackAdd(e);
-
+            player.doAction(SpaceMan.actions.LEFT);
         }
         if (key == KeyEvent.VK_D) {
-            player.doAction(SpaceMan.actions.RIGHT);
             keyStackAdd(e);
-
+            player.doAction(SpaceMan.actions.RIGHT);
         }
         if (key == KeyEvent.VK_S) {
-            player.doAction(SpaceMan.actions.CROUCH);
             keyStackAdd(e);
-
+            player.doAction(SpaceMan.actions.CROUCH);
         }
         if (key == KeyEvent.VK_W) {
-            player.doAction(SpaceMan.actions.JUMP);
             keyStackAdd(e);
+            player.doAction(SpaceMan.actions.JUMP);
         }
     }
 
@@ -89,6 +94,18 @@ public class SpaceManController implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void preStep(StepEvent stepEvent) {
+        if(repeatKeys){
+            keyPressed(keyStack.peek());
+        }
+    }
+
+    @Override
+    public void postStep(StepEvent stepEvent) {
 
     }
 }

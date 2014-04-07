@@ -17,8 +17,9 @@ public class Jump extends SpaceManState{
 
     @Override
     protected void setup() {
+
         player.setLinearVelocity(new Vec2(player.getLinearVelocity().x, player.JUMPSPEED));
-        player.getFootSensor().addSensorListener(new GroundContactListener(player));
+        player.getFootSensor().addSensorListener(player.getSensorListener());
         System.out.println("Jump Up");
     }
 
