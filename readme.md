@@ -13,4 +13,4 @@ Once states are organized in a meaningful graph, and the state machine will move
 
 This is best demonstrated in the ```bodies.spaceman.SpaceMan.java``` class. The states, edges and actions defined in the constructor are representative of the following graph:
 
-![state-graph](ragnarula/SpaceManStateMachine/master/images/graph.jpg?raaw=true "State Graph")
+![state-graph](ragnarula/SpaceManStateMachine/images/graph.jpg?raaw=true "State Graph")
