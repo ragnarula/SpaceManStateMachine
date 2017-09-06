@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'playerstatetest.PlayerStateTest'
+
+repositories {
+   flatDir {
+       dirs 'libs'
+   }
+}
+
+dependencies {
+   compile name: 'engine-32/engine-32'
+}
